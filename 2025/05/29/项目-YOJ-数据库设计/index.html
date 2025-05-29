@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>YOJ·数据库设计 | Crowntit's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><div class="darkmode-toggle">🌓</div><script>var prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+var toggle = document.querySelector('.darkmode-toggle');
+var html = document.querySelector('html');
+
+html.dataset.dark = localStorage.dark || prefersDarkMode.matches;
+
+toggle.addEventListener('click', () => {
+localStorage.dark = !(html.dataset.dark == 'true');
+html.dataset.dark = localStorage.dark;
+});</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">YOJ·数据库设计</h1><a id="logo" href="/.">Crowntit's Blog</a><p class="description">悟已往之不谏，知来者之可追</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 主页</i></a><a href="/archives/"><i class="fa fa-archive"> 文章</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">YOJ·数据库设计</h1><div class="post-meta">2025-05-29<span> | </span><span class="category"><a href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><h1 id="YOJ·数据库设计"><a href="#YOJ·数据库设计" class="headerlink" title="YOJ·数据库设计"></a>YOJ·数据库设计</h1><h2 id="数据库表设计"><a href="#数据库表设计" class="headerlink" title="数据库表设计"></a>数据库表设计</h2><h3 id="用户表"><a href="#用户表" class="headerlink" title="用户表"></a>用户表</h3><p>user</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>数据类型</th>
+<th>约束</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>bigint</td>
+<td>primary key</td>
+<td>auto_increment, 用户id</td>
+</tr>
+<tr>
+<td>user_account</td>
+<td>varchar(256)</td>
+<td>unique</td>
+<td>账号</td>
+</tr>
+<tr>
+<td>user_password</td>
+<td>varchar(512)</td>
+<td></td>
+<td>密码</td>
+</tr>
+<tr>
+<td>user_avatar</td>
+<td>varchar(1024)</td>
+<td></td>
+<td>用户头像uri</td>
+</tr>
+<tr>
+<td>user_name</td>
+<td>varchar(256)</td>
+<td></td>
+<td>用户昵称</td>
+</tr>
+<tr>
+<td>user_role</td>
+<td>varchar(256)</td>
+<td></td>
+<td>用户角色：user&#x2F;admin</td>
+</tr>
+<tr>
+<td>create_time</td>
+<td>datetime</td>
+<td></td>
+<td>创建时间</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>datetime</td>
+<td></td>
+<td>更新时间</td>
+</tr>
+<tr>
+<td>is_delete</td>
+<td>tinyint</td>
+<td></td>
+<td>是否删除，0-正常、1-删除</td>
+</tr>
+</tbody></table>
+<h3 id="题目表"><a href="#题目表" class="headerlink" title="题目表"></a>题目表</h3><p>question</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>数据类型</th>
+<th>约束</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>bigint</td>
+<td>primary key</td>
+<td>题目id</td>
+</tr>
+<tr>
+<td>title</td>
+<td>varchar(512)</td>
+<td></td>
+<td>标题</td>
+</tr>
+<tr>
+<td>content</td>
+<td>text</td>
+<td></td>
+<td>内容</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>bigint</td>
+<td></td>
+<td>创建用户 id</td>
+</tr>
+<tr>
+<td>difficulty</td>
+<td>tinyint</td>
+<td></td>
+<td>难度，1-简单、2-中等、3-困难</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>varchar(1024)</td>
+<td></td>
+<td>标签列表（json 数组）</td>
+</tr>
+<tr>
+<td>submit_num</td>
+<td>int</td>
+<td></td>
+<td>题目提交数</td>
+</tr>
+<tr>
+<td>accepted_num</td>
+<td>int</td>
+<td></td>
+<td>题目通过数</td>
+</tr>
+<tr>
+<td>code_template</td>
+<td>int</td>
+<td></td>
+<td>代码模板，0-default、&gt;0-核心代码模式的特定模板id</td>
+</tr>
+<tr>
+<td>judge_mode</td>
+<td>tinyint</td>
+<td></td>
+<td>判题模式，1-普通评测、2-特殊评测 (未开放)</td>
+</tr>
+<tr>
+<td>judge_cases</td>
+<td>text</td>
+<td></td>
+<td>判题用例（json 对象数组）</td>
+</tr>
+<tr>
+<td>judge_config</td>
+<td>text</td>
+<td></td>
+<td>判题配置（json 对象）</td>
+</tr>
+<tr>
+<td>create_time</td>
+<td>datetime</td>
+<td></td>
+<td>创建时间</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>datetime</td>
+<td></td>
+<td>更新时间</td>
+</tr>
+<tr>
+<td>status</td>
+<td>tinyint</td>
+<td></td>
+<td>题目状态，0-正常、1-失效</td>
+</tr>
+<tr>
+<td>is_delete</td>
+<td>tinyint</td>
+<td></td>
+<td>是否删除，0-正常、1-删除</td>
+</tr>
+</tbody></table>
+<ul>
+<li>judgeCase：测试用例，包括：<ul>
+<li>input</li>
+<li>output</li>
+</ul>
+</li>
+<li>judge_cases存储json格式的judgeCase对象数组</li>
+<li>judge_config：判题配置限制，包括：<ul>
+<li>timeLimit：时间限制，单位ms</li>
+<li>memoryLimit：内存限制，单位KB</li>
+<li>stackLimit：堆栈限制，单位1</li>
+</ul>
+</li>
+</ul>
+<h3 id="题目提交表"><a href="#题目提交表" class="headerlink" title="题目提交表"></a>题目提交表</h3><p>question_submit</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>数据类型</th>
+<th>约束</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>bigint</td>
+<td>primary key</td>
+<td>id</td>
+</tr>
+<tr>
+<td>question_id</td>
+<td>bigint</td>
+<td></td>
+<td>题目id</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>bigint</td>
+<td></td>
+<td>创建用户 id</td>
+</tr>
+<tr>
+<td>user_account</td>
+<td>varchar(256)</td>
+<td></td>
+<td>提交用户账号</td>
+</tr>
+<tr>
+<td>code</td>
+<td>text</td>
+<td></td>
+<td>用户代码</td>
+</tr>
+<tr>
+<td>language</td>
+<td>varchar(128)</td>
+<td></td>
+<td>编程语言</td>
+</tr>
+<tr>
+<td>status</td>
+<td>tinyint</td>
+<td></td>
+<td>判题状态，0-待判题、1-判题中、2-成功、3-失败</td>
+</tr>
+<tr>
+<td>result</td>
+<td>varchar(1024)</td>
+<td></td>
+<td>判题结果，0~5</td>
+</tr>
+<tr>
+<td>judge_info</td>
+<td>text</td>
+<td></td>
+<td>判题信息（json 对象）</td>
+</tr>
+<tr>
+<td>submit_time</td>
+<td>datetime</td>
+<td></td>
+<td>提交时间</td>
+</tr>
+<tr>
+<td>create_time</td>
+<td>datetime</td>
+<td></td>
+<td>创建时间</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>datetime</td>
+<td></td>
+<td>更新时间</td>
+</tr>
+<tr>
+<td>is_delete</td>
+<td>tinyint</td>
+<td></td>
+<td>是否删除，0-正常、1-删除</td>
+</tr>
+</tbody></table>
+<ul>
+<li>result：判题结果，0-通过、1-答案错误、2-格式错误、3-编译错误、4-运行错误、5-系统错误</li>
+<li>judge_info：判题详情，包括：<ul>
+<li>time：运行时间</li>
+<li>memory：占用内存</li>
+<li>codeLength：代码长度</li>
+<li>errMessage：判题错误详情，编译错误时为编译错误信息、运行异常时为运行异常信息、答案错误时存储错误答案所用输入用例</li>
+</ul>
+</li>
+</ul>
+<h2 id="建表语句"><a href="#建表语句" class="headerlink" title="建表语句"></a>建表语句</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"># 数据库初始化</span><br><span class="line"># <span class="variable">@author</span> <span class="operator">&lt;</span>a href<span class="operator">=</span>&quot;https://crowntit.github.io&quot;<span class="operator">&gt;</span>鸦雀<span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建库</span></span><br><span class="line"><span class="keyword">create</span> database if <span class="keyword">not</span> <span class="keyword">exists</span> yoj_v1;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 切换库</span></span><br><span class="line">use yoj_v1;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 用户表</span></span><br><span class="line"><span class="keyword">create table</span> if <span class="keyword">not</span> <span class="keyword">exists</span> <span class="keyword">user</span></span><br><span class="line">(</span><br><span class="line">    id            <span class="type">bigint</span>       auto_increment               <span class="keyword">not null</span>  comment <span class="string">&#x27;用户id&#x27;</span> <span class="keyword">primary key</span>,</span><br><span class="line">    user_account  <span class="type">varchar</span>(<span class="number">256</span>) <span class="keyword">unique</span>                       <span class="keyword">not null</span> comment <span class="string">&#x27;账号&#x27;</span>,</span><br><span class="line">    user_password <span class="type">varchar</span>(<span class="number">512</span>)                              <span class="keyword">not null</span> comment <span class="string">&#x27;密码&#x27;</span>,</span><br><span class="line">    user_avatar   <span class="type">varchar</span>(<span class="number">1024</span>)                             <span class="keyword">null</span> comment <span class="string">&#x27;用户头像&#x27;</span>,</span><br><span class="line">    user_name     <span class="type">varchar</span>(<span class="number">256</span>)                              <span class="keyword">null</span> comment <span class="string">&#x27;用户昵称&#x27;</span>,</span><br><span class="line">    user_role     <span class="type">varchar</span>(<span class="number">256</span>) <span class="keyword">default</span> <span class="string">&#x27;user&#x27;</span>               <span class="keyword">not null</span> comment <span class="string">&#x27;用户角色：user/admin&#x27;</span>,</span><br><span class="line">    create_time   datetime     <span class="keyword">default</span> <span class="built_in">CURRENT_TIMESTAMP</span>    <span class="keyword">not null</span> comment <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">    update_time   datetime     <span class="keyword">default</span> <span class="built_in">CURRENT_TIMESTAMP</span>    <span class="keyword">not null</span> <span class="keyword">on</span> <span class="keyword">update</span> <span class="built_in">CURRENT_TIMESTAMP</span> comment <span class="string">&#x27;更新时间&#x27;</span>,</span><br><span class="line">    is_delete     tinyint      <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;是否删除&#x27;</span></span><br><span class="line">) comment <span class="string">&#x27;用户&#x27;</span> <span class="keyword">collate</span> <span class="operator">=</span> utf8mb4_unicode_ci;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 题目表</span></span><br><span class="line"><span class="keyword">create table</span> if <span class="keyword">not</span> <span class="keyword">exists</span> question</span><br><span class="line">(</span><br><span class="line">    id            <span class="type">bigint</span>       auto_increment               <span class="keyword">not null</span>  comment <span class="string">&#x27;题目id&#x27;</span> <span class="keyword">primary key</span>,</span><br><span class="line">    title         <span class="type">varchar</span>(<span class="number">512</span>)                              <span class="keyword">null</span> comment <span class="string">&#x27;标题&#x27;</span>,</span><br><span class="line">    content       text                                      <span class="keyword">null</span> comment <span class="string">&#x27;内容&#x27;</span>,</span><br><span class="line">    user_id       <span class="type">bigint</span>                                    <span class="keyword">not null</span> comment <span class="string">&#x27;创建用户 id&#x27;</span>,</span><br><span class="line">    difficulty    tinyint                                   <span class="keyword">null</span> comment <span class="string">&#x27;难度，1-简单、2-中等、3-困难&#x27;</span>,</span><br><span class="line">    tags          <span class="type">varchar</span>(<span class="number">1024</span>)                             <span class="keyword">null</span> comment <span class="string">&#x27;标签列表（json 数组）&#x27;</span>,</span><br><span class="line">    submit_num    <span class="type">int</span>          <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;题目提交数&#x27;</span>,</span><br><span class="line">    accepted_num  <span class="type">int</span>          <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;题目通过数&#x27;</span>,</span><br><span class="line">    code_template <span class="type">int</span>          <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;代码模板，0-default、&gt;0-核心代码模式的特定模板id&#x27;</span>,</span><br><span class="line">    judge_mode    tinyint                                   <span class="keyword">not null</span> comment <span class="string">&#x27;判题模式，1-普通评测、2-特殊评测&#x27;</span>,</span><br><span class="line">    judge_cases   text                                      <span class="keyword">null</span> comment <span class="string">&#x27;判题用例（json 对象数组）&#x27;</span>,</span><br><span class="line">    judge_config  text                                      <span class="keyword">null</span> comment <span class="string">&#x27;判题配置（json 对象）&#x27;</span>,</span><br><span class="line">    create_time   datetime     <span class="keyword">default</span> <span class="built_in">CURRENT_TIMESTAMP</span>    <span class="keyword">not null</span> comment <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">    update_time   datetime     <span class="keyword">default</span> <span class="built_in">CURRENT_TIMESTAMP</span>    <span class="keyword">not null</span> <span class="keyword">on</span> <span class="keyword">update</span> <span class="built_in">CURRENT_TIMESTAMP</span> comment <span class="string">&#x27;更新时间&#x27;</span>,</span><br><span class="line">    status        tinyint      <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;题目状态，0-正常、1-失效&#x27;</span>,</span><br><span class="line">    is_delete     tinyint      <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;是否删除&#x27;</span></span><br><span class="line">) comment <span class="string">&#x27;题目&#x27;</span> <span class="keyword">collate</span> <span class="operator">=</span> utf8mb4_unicode_ci;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 题目提交表</span></span><br><span class="line"><span class="keyword">create table</span> if <span class="keyword">not</span> <span class="keyword">exists</span> question_submit</span><br><span class="line">(</span><br><span class="line">    id            <span class="type">bigint</span>       auto_increment               <span class="keyword">not null</span> comment <span class="string">&#x27;id&#x27;</span> <span class="keyword">primary key</span>,</span><br><span class="line">    question_id   <span class="type">bigint</span>                                    <span class="keyword">not null</span> comment <span class="string">&#x27;题目 id&#x27;</span>,</span><br><span class="line">    user_id       <span class="type">bigint</span>                                    <span class="keyword">not null</span> comment <span class="string">&#x27;提交用户 id&#x27;</span>,</span><br><span class="line">    user_account  <span class="type">varchar</span>(<span class="number">256</span>)                              <span class="keyword">not null</span> comment <span class="string">&#x27;提交用户账号&#x27;</span>,</span><br><span class="line">    code          text                                      <span class="keyword">not null</span> comment <span class="string">&#x27;用户代码&#x27;</span>,</span><br><span class="line">    <span class="keyword">language</span>      <span class="type">varchar</span>(<span class="number">128</span>)                              <span class="keyword">not null</span> comment <span class="string">&#x27;编程语言&#x27;</span>,</span><br><span class="line">    status        tinyint      <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;判题状态，0-待判题、1-判题中、2-成功、3-失败&#x27;</span>,</span><br><span class="line">    <span class="keyword">result</span>        tinyint      <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;判题结果，0-通过、1-答案错误、2-格式错误、3-编译错误、4-运行错误、5-系统错误&#x27;</span>,</span><br><span class="line">    judge_info    text                                      <span class="keyword">null</span> comment <span class="string">&#x27;判题信息（json 对象）&#x27;</span>,</span><br><span class="line">    submit_time   datetime     <span class="keyword">default</span> <span class="built_in">CURRENT_TIMESTAMP</span>    <span class="keyword">not null</span> comment <span class="string">&#x27;提交时间&#x27;</span>,</span><br><span class="line">    create_time   datetime     <span class="keyword">default</span> <span class="built_in">CURRENT_TIMESTAMP</span>    <span class="keyword">not null</span> comment <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">    update_time   datetime     <span class="keyword">default</span> <span class="built_in">CURRENT_TIMESTAMP</span>    <span class="keyword">not null</span> <span class="keyword">on</span> <span class="keyword">update</span> <span class="built_in">CURRENT_TIMESTAMP</span> comment <span class="string">&#x27;更新时间&#x27;</span>,</span><br><span class="line">    is_delete     tinyint      <span class="keyword">default</span> <span class="number">0</span>                    <span class="keyword">not null</span> comment <span class="string">&#x27;是否删除&#x27;</span>,</span><br><span class="line">    index idx_question_id (question_id),</span><br><span class="line">    index idx_user_id (user_id)</span><br><span class="line">) comment <span class="string">&#x27;题目提交&#x27;</span> <span class="keyword">collate</span> <span class="operator">=</span> utf8mb4_unicode_ci;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><h3 id="bigint和long的选择"><a href="#bigint和long的选择" class="headerlink" title="bigint和long的选择"></a>bigint和long的选择</h3><p>因为id想要使用ASSIGN_ID的生成算法，所以改成了bigint类型。不选long是因为bigint可容纳的数字大小可以比long更大</p>
+<h3 id="使用json字符串存储对象"><a href="#使用json字符串存储对象" class="headerlink" title="使用json字符串存储对象"></a>使用json字符串存储对象</h3><p>对于一些需要灵活性的字段，以json字符串的形式存储：</p>
+<p><strong>题目表</strong></p>
+<ul>
+<li>tags：<ul>
+<li>这里用这种方式存储只是为了方便，只做记录作用</li>
+<li>如果需要根据题目标签查询题目、或者严谨处理的话，建议列一个标签的枚举，然后用一个题目_标签表存储关系，字段就是id、question_id、tag_id</li>
+</ul>
+</li>
+<li>judge_cases：<ul>
+<li>因为不同题目的测试用例，数据类型、用例数、单用例参数个数和长度都不同，所以选择这种方式存储</li>
+<li>需要严谨处理的话也是需要另开一个用例和题目的关联表，不过那样的话修改数据可能会很麻烦</li>
+<li>或许可以处理为某种文件，只存储其uri？不过这个项目初期并不打算做一些文件上传相关的功能</li>
+</ul>
+</li>
+<li>judge_config：<ul>
+<li>包含题目的时间限制timeLimit (单位ms)、内存限制memoryLimit (单位B)、堆栈限制stackLimit</li>
+<li>因为不作为查询条件，一般也不频繁更新，字段都属于一类的属性，所以结合在一起存储</li>
+</ul>
+</li>
+</ul>
+<p><strong>题目提交表</strong></p>
+<ul>
+<li>judge_info：<ul>
+<li>包含最大执行用时time、最大消耗内存memory、代码长度codeLength和异常信息errMessage。</li>
+<li>这里选择用这种方式存储的原因是，memory以B为单位，如果换算为KB会丢失精度、但是以B为单位的话可能结果数字会很大，长度不固定；以及如果判题通过，异常信息可能为空。</li>
+</ul>
+</li>
+</ul>
+<p><strong>分析</strong>：</p>
+<ul>
+<li>以json字符串存储数据比较灵活，json对象的字段可以修改而不影响数据库，json字符串长度也可变</li>
+<li>用这种形式存储数据的前提是：<strong>所存储的字段不会作为查询条件</strong>、数据不需要频繁更新</li>
+<li>这种存储方式是违反第一范式的，因为实际上列可再分</li>
+</ul>
+</div><div class="post-copyright"><script type="text/javascript" src="/js/copyright.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copyright.css?v=1.0.0"><p><span>本文标题：</span>YOJ·数据库设计</p><p><span>文章作者：</span>Crowntit</p><p><span>发布时间：</span>2025-05-29</p><p><span>最后更新：</span>2025-05-29</p><!--p--><!--  span= __('copyright_link_prefix')--><!--  a(href='/' + page.path)= page.permalink--><!--  span.copy-path--><!--    i.fa.fa-clipboard(data-clipboard-text=page.permalink)--><p><span>版权声明：</span>本文为原创文章，转载请附上原文出处链接。</p></div><br><div class="tags"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/YOJ%E5%9C%A8%E7%BA%BF%E5%88%A4%E9%A2%98%E5%B9%B3%E5%8F%B0/" rel="tag">YOJ在线判题平台</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag">项目</a></li></ul></div><div class="post-nav"><a class="next" href="/2025/05/29/%E9%A1%B9%E7%9B%AE-YOJ-%E9%A1%B9%E7%9B%AE%E6%80%BB%E8%A7%88/">YOJ在线判题平台·项目总览</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://crowntit.github.io"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/Cr-avatar.png"/></a><p class="description-text">Crowntit 鸦雀<br>软件工程本科生 | 后端开发<br>AI、Java | 持续学习、持续输出<br>感谢你的来访<br></p><a class="info-icon" href="https://x.com/CRowntit_" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:2475383034@qq.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/crowntit" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 15px;">事务</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 15px;">面试题</a> <a href="/tags/%E9%94%81/" style="font-size: 15px;">锁</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 15px;">数据库</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 15px;">索引</a> <a href="/tags/YOJ%E5%9C%A8%E7%BA%BF%E5%88%A4%E9%A2%98%E5%B9%B3%E5%8F%B0/" style="font-size: 15px;">YOJ在线判题平台</a> <a href="/tags/%E9%A1%B9%E7%9B%AE/" style="font-size: 15px;">项目</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/29/%E9%A1%B9%E7%9B%AE-YOJ-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">YOJ·数据库设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/29/%E9%A1%B9%E7%9B%AE-YOJ-%E9%A1%B9%E7%9B%AE%E6%80%BB%E8%A7%88/">YOJ在线判题平台·项目总览</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/28/MySQL%E4%B8%AD%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%EF%BC%9F/">MySQL中如何实现事务隔离级别？</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/26/MySQL%E4%B8%AD%E7%9A%84%E5%9B%9E%E8%A1%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/">MySQL中的回表是什么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/26/InnoDB%E7%9A%84%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95%E5%88%86%E6%9E%90%EF%BC%8C%E5%8F%8A%E4%BB%8E%E7%B4%A2%E5%BC%95%E8%A7%92%E5%BA%A6%E5%AF%B9%E6%AF%94InnoDB%E5%92%8CMyISAM/">InnoDB的主键索引分析，及从索引结构对比InnoDB和MyISAM</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/25/MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/">MySQL中的索引下推是什么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/25/MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/">MySQL中的索引类型有哪些？</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/23/MySQL%E4%B8%AD%E7%9A%84%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/">MySQL中的覆盖索引是什么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/23/%E4%BB%80%E4%B9%88%E6%98%AF%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%EF%BC%9F%E4%BC%98%E7%BC%BA%E7%82%B9%E6%98%AF%EF%BC%9F/">什么是聚簇索引和非聚簇索引？优缺点是？</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/22/MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F/">MySQL的存储引擎有哪些？它们之间的区别？</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a target="_blank"></a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2025 <a href="/." rel="nofollow">Crowntit's Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
